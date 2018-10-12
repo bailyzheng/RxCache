@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.rx_cache2.internal.Memory;
 import io.rx_cache2.internal.Record;
@@ -28,7 +29,8 @@ public final class ReferenceMapMemory implements Memory {
   private final Map<String, io.rx_cache2.internal.Record> referenceMap;
 
   public ReferenceMapMemory() {
-    referenceMap = Collections.synchronizedMap(new io.rx_cache2.internal.cache.memory.apache.ReferenceMap<String, Record>());
+//    referenceMap = Collections.synchronizedMap(new io.rx_cache2.internal.cache.memory.apache.ReferenceMap<String, Record>());
+    referenceMap = new ConcurrentHashMap<>();
   }
 
   @Override public <T> io.rx_cache2.internal.Record<T> getIfPresent(String key) {
